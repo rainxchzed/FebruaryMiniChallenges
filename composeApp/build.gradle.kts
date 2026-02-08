@@ -23,6 +23,17 @@ kotlin {
             baseName = "ComposeApp"
             isStatic = true
         }
+
+        iosTarget.compilations.all {
+            compileTaskProvider.configure {
+                compilerOptions {
+                    freeCompilerArgs.add("-linker-option")
+                    freeCompilerArgs.add("-framework")
+                    freeCompilerArgs.add("-linker-option")
+                    freeCompilerArgs.add("Network")
+                }
+            }
+        }
     }
     
     sourceSets {
