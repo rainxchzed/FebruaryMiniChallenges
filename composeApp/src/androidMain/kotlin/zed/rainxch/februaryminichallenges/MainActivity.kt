@@ -8,6 +8,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.lifecycle.viewmodel.viewModelFactory
+import zed.rainxch.februaryminichallenges.missed_messages.data.AndroidMissedMessagedRepository
+import zed.rainxch.februaryminichallenges.missed_messages.presentation.MissedMessagesViewModel
 import zed.rainxch.februaryminichallenges.still_connected.data.service.AndroidConnectivityManager
 import zed.rainxch.februaryminichallenges.still_connected.presentation.StillConnectedViewModel
 
@@ -19,8 +21,8 @@ class MainActivity : ComponentActivity() {
         setContent {
             App(
                 viewModel = viewModel(factory = viewModelFactory {
-                    addInitializer(StillConnectedViewModel::class, initializer = {
-                        StillConnectedViewModel(AndroidConnectivityManager())
+                    addInitializer(MissedMessagesViewModel::class, initializer = {
+                        MissedMessagesViewModel(AndroidMissedMessagedRepository())
                     })
                 })
             )

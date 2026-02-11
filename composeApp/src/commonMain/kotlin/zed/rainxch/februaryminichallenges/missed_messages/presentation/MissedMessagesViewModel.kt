@@ -2,12 +2,20 @@ package zed.rainxch.februaryminichallenges.missed_messages.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+import zed.rainxch.februaryminichallenges.missed_messages.domain.MissedMessagedRepository
 
-class MissedMessagesViewModel : ViewModel() {
+class MissedMessagesViewModel(
+    private val missedMessagedRepository: MissedMessagedRepository
+) : ViewModel() {
 
     private var hasLoadedInitialData = false
 
@@ -15,7 +23,8 @@ class MissedMessagesViewModel : ViewModel() {
     val state = _state
         .onStart {
             if (!hasLoadedInitialData) {
-                /** Load initial data here **/
+                observeNotificationEnabled()
+
                 hasLoadedInitialData = true
             }
         }
@@ -25,9 +34,26 @@ class MissedMessagesViewModel : ViewModel() {
             initialValue = MissedMessagesState()
         )
 
+    private fun observeNotificationEnabled() {
+        viewModelScope.launch {
+            missedMessagedRepository
+                .notificationEnabledFlow()
+                .flowOn(Dispatchers.IO)
+                .collect { isNotificationEnabled ->
+                    _state.update {
+                        it.copy(
+                            isNotificationEnabled = isNotificationEnabled
+                        )
+                    }
+                }
+        }
+    }
+
     fun onAction(action: MissedMessagesAction) {
         when (action) {
-            else -> TODO("Handle actions")
+            MissedMessagesAction.OnOpenSystemSettingsClick -> {
+                missedMessagedRepository.openNotificationSettings()
+            }
         }
     }
 
