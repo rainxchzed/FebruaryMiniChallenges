@@ -4,5 +4,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface LastActiveRepository {
     fun getLastActive() : Flow<Long?>
-    fun setLastActive(lastActiveMillis: Long)
+    suspend fun setLastActive(lastActiveMillis: Long)
 }

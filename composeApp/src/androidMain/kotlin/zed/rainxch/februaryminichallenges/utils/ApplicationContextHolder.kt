@@ -9,6 +9,7 @@ import android.net.ConnectivityManager
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.getSystemService
+import java.io.File
 
 object ApplicationContextHolder {
     private var applicationContext: Context? = null
@@ -30,6 +31,10 @@ object ApplicationContextHolder {
     }
     val packageName: String by lazy {
         (applicationContext ?: throw IllegalStateException("init function is not called :)")).packageName
+    }
+
+    val filesDir: File by lazy {
+        (applicationContext ?: throw IllegalStateException("init function is not called :)")).filesDir
     }
 
     fun startActivity(intent: Intent) {

@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.lifecycle.viewmodel.viewModelFactory
+import zed.rainxch.februaryminichallenges.last_active.data.local.data_store.createDataStore
 import zed.rainxch.februaryminichallenges.last_active.data.repository.LastActiveRepositoryImpl
 import zed.rainxch.februaryminichallenges.last_active.presentation.LastActiveRoot
 import zed.rainxch.februaryminichallenges.last_active.presentation.LastActiveViewModel
@@ -22,7 +23,7 @@ class MainActivity : ComponentActivity() {
                 viewModel = viewModel(factory = viewModelFactory {
                     addInitializer(LastActiveViewModel::class, initializer = {
                         LastActiveViewModel(
-                            lastActiveRepository = LastActiveRepositoryImpl()
+                            lastActiveRepository = LastActiveRepositoryImpl(createDataStore())
                         )
                     })
                 })

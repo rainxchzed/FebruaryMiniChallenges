@@ -46,7 +46,9 @@ class LastActiveViewModel (
     fun onAction(action: LastActiveAction) {
         when (action) {
             LastActiveAction.OnAppOnBackground -> {
-                lastActiveRepository.setLastActive(Clock.System.now().toEpochMilliseconds())
+                viewModelScope.launch {
+                    lastActiveRepository.setLastActive(Clock.System.now().toEpochMilliseconds())
+                }
             }
         }
     }
