@@ -8,10 +8,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.lifecycle.viewmodel.viewModelFactory
-import zed.rainxch.februaryminichallenges.missed_messages.data.AndroidMissedMessagedRepository
-import zed.rainxch.februaryminichallenges.missed_messages.presentation.MissedMessagesViewModel
-import zed.rainxch.februaryminichallenges.still_connected.data.service.AndroidConnectivityManager
-import zed.rainxch.februaryminichallenges.still_connected.presentation.StillConnectedViewModel
+import zed.rainxch.februaryminichallenges.last_active.presentation.LastActiveRoot
+import zed.rainxch.februaryminichallenges.last_active.presentation.LastActiveViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,10 +17,10 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            App(
+            LastActiveRoot(
                 viewModel = viewModel(factory = viewModelFactory {
-                    addInitializer(MissedMessagesViewModel::class, initializer = {
-                        MissedMessagesViewModel(AndroidMissedMessagedRepository())
+                    addInitializer(LastActiveViewModel::class, initializer = {
+                        LastActiveViewModel()
                     })
                 })
             )

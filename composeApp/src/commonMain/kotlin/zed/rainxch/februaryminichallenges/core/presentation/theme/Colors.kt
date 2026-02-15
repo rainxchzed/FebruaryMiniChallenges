@@ -25,3 +25,10 @@ object MissedMessagesColors {
     val errorBg = Color(0xffFDF1F4)
     val errorText = Color(0xffC0083C)
 }
+
+object LastActiveColors {
+    val background = Color(0xffF4F9FF)
+    val textPrimary = Color(0xff071121)
+    val textSecondary = Color(0xff47566E)
+    val outline = Color(0xffD7E0ED)
+}
